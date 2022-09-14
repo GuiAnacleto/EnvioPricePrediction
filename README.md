@@ -7,7 +7,7 @@
 ![GitHub forks](https://img.shields.io/github/forks/GuiAnacleto/EnvioPricePrediction?style=for-the-badge)
 ![Bitbucket open issues](https://img.shields.io/bitbucket/issues/GuiAnacleto/EnvioPricePrediction?style=for-the-badge)
 
-<img src="https://raw.githubusercontent.com/GuiAnacleto/EnvioPricePrediction/main/README/Capa.png?token=GHSAT0AAAAAABYWBYXDH7ZXGT4AWD45QRNCYZBX4LA">
+<img src="./README/Capa.png">
 
 > This project aims to provide the customer with an interface that can predict the price at which the product must be sold to receive the specified net value.
 
