@@ -88,4 +88,4 @@ We thank the following people who contributed to this project:
   </tr>
 </table>
 
-[⬆ Voltar ao topo](#EnvioPricePrediction)<br>
+[⬆ Voltar ao topo](#EnvioPricePrediction)<br> 
