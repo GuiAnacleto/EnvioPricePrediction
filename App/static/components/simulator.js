@@ -20,7 +20,9 @@ const SIMULATOR = {
       <div class="columns mb-4" v-for="(eCommerce, index) in apiResult" :key="index" v-if="showList">\
         <div class="column is-12">\
           <div class="columns">\
-            <img class="column is-2 is-5-mobile" :alt="\`${eCommerce.service} logo\`" :src="\`../static/img/${eCommerce.service}.svg\`" height="50" />\
+          <div class="column is-2 is-5-mobile">\
+            <img :alt="\`${eCommerce.service} logo\`" :src="\`../static/img/${eCommerce.service}.svg\`" height="50" />\
+          </div>\
             <div class="column is-10 is-7-mobile">\
               <div class="columns">\
                 <div class="column is-6 is-12-mobile">\
