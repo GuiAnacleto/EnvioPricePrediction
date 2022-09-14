@@ -13,7 +13,7 @@ The project is still under development and the next updates will focus on the fo
 - [x] API construction in Python.
 - [x] Create the price logic in a basic way.
 - [x] Upload API inside VPS (Apache2).
-- [ ] Integrate FrontEnd in the Application.
+- [x] Integrate FrontEnd in the Application.
 - [ ] Adjust API for automatic pricing with external API's..
 
 ## 💻 Prerequisites
