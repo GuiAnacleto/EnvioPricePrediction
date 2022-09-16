@@ -1,10 +1,14 @@
 from app import app
+from app.service import getBlingProductInfo
 from flask import Flask, redirect, url_for, request, jsonify, render_template
 
-@app.route('/prices/<price>')
-def prices(price):
+@app.route('/prices/<sku>/<price>')
+def prices(sku, price):
+    print(sku)
     
     price = float(price)
+
+    print(getBlingProductInfo.getBlingProductInfo(sku))
 
     #MercadoLivre=================================================================
 
@@ -70,34 +74,54 @@ def prices(price):
 
     prices_result = [
         {"service":"mercadoLivre",
-         "tax":"14",
+         "tax": "14% + R$ 5,00",
+         "shipping": "17",
+         "goverment_taxes": "10",
          "amount":round(ml_price, 2)},
         {"service":"amazon",
          "tax": "15",
+         "shipping": "17",
+         "goverment_taxes": "10",
          "amount": round(amazon_price, 2)},
         {"service":"americanas",
          "tax": "16",
+         "shipping": "17",
+         "goverment_taxes": "10",
          "amount": round(americanas_result, 2)},
         {"service":"pontofrio",
          "tax": "18",
+         "shipping": "17",
+         "goverment_taxes": "10",
          "amount": round(ponto_result, 2)},
         {"service":"kabum",
          "tax": "14",
+         "shipping": "17",
+         "goverment_taxes": "10",
          "amount": round(kabum_result, 2)},
         {"service":"magazine",
          "tax": "20",
+         "shipping": "17",
+         "goverment_taxes": "10",
          "amount": round(magazine_result, 2)},
         {"service":"shopee",
          "tax": "14",
+         "shipping": "17",
+         "goverment_taxes": "10",
          "amount": round(shopee_result, 2)},
         {"service":"aliexpress",
          "tax": "10",
+         "shipping": "17",
+         "goverment_taxes": "10",
          "amount": round(aliexpress_result, 2)},
         {"service":"submarino",
          "tax": "16",
+         "shipping": "17",
+         "goverment_taxes": "10",
          "amount": round(submarino_result, 2)},
         {"service":"olist",
          "tax": "21",
+         "shipping": "17",
+         "goverment_taxes": "10",
          "amount": round(olist_result, 2)}
     ]
 
