@@ -14,4 +14,3 @@ class product():
         self.larguraProduto = larguraProduto
         self.alturaProduto = alturaProduto
         self.profundidadeProduto = profundidadeProduto
-

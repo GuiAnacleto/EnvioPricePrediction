@@ -5,8 +5,11 @@ const SIMULATOR = {
       <h1 class="column title is-12">Precificação</h1>\
     </div>\
     <div class="columns">\
-      <div class="column is-7 is-full-mobile">\
+      <div class="column is-4 is-full-mobile">\
         <input class="input is-medium" type="text" v-model="sku" placeholder="SKU do Produto" />\
+      </div>\
+      <div class="column is-2 is-full-mobile">\
+        <input class="input is-medium" type="text" v-model="goverment_taxes" placeholder="Imposto" />\
       </div>\
       <div class="column is-4 is-full-mobile">\
         <input class="input is-medium" type="text" v-model="profitInput" placeholder="Valor de lucro da venda" />\
@@ -87,7 +90,7 @@ const SIMULATOR = {
             this.loading = true
             this.apiResult = []
                 // API MOCK
-            const result = await axios.get(`/prices/${this.sku}/${this.profitInput}`)
+            const result = await axios.get(`/prices/${this.sku}/${this.goverment_taxes}/${this.profitInput}`)
             this.apiResult = result.data
             this.loading = false
         }
