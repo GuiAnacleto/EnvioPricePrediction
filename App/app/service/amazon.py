@@ -1,4 +1,5 @@
 from app import app
 
-def getAmazonProductPrice():    
-    pass
+
+def getProductPrice():
+    return 0

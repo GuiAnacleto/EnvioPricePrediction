@@ -1,5 +1,5 @@
 const SIMULATOR = {
-    template: '\
+  template: '\
   <div class="container p-3">\
     <div class="columns">\
       <h1 class="column title is-12">Precificação</h1>\
@@ -12,7 +12,7 @@ const SIMULATOR = {
         <input class="input is-medium" type="text" v-model="goverment_taxes" placeholder="Imposto" />\
       </div>\
       <div class="column is-4 is-full-mobile">\
-        <input class="input is-medium" type="text" v-model="profitInput" placeholder="Valor de lucro da venda" />\
+        <input class="input is-medium" type="text" v-model="profitInput" placeholder="Valor a cobrar" />\
       </div>\
       <div class="column is-full-mobile">\
         <button class="button is-info is-medium is-fullwidth" @click="searchProfit">\
@@ -51,7 +51,7 @@ const SIMULATOR = {
               </div>\
               <div class="column is-3 is-full-mobile">\
                 <div class="input-wrapper">\
-                  <label>Valor mínimo de venda</label>\
+                  <label>Valor a Receber</label>\
                   <input class="input" type="text" :value="formatCurrency(eCommerce.amount)" readonly />\
                 </div>\
               </div>\
@@ -67,40 +67,40 @@ const SIMULATOR = {
     </div>\
   </div>\
 ',
-    data: function() {
-        return {
-            profitInput: '',
-            apiResult: [],
-            loading: false
-        }
-    },
-    computed: {
-        showList: function() {
-            return (this.apiResult.length > 0 && !this.isLoading)
-        },
-        isLoading() {
-            return this.loading
-        }
-    },
-    methods: {
-        formatCurrency: function(value) {
-            return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value)
-        },
-        searchProfit: async function() {
-            this.loading = true
-            this.apiResult = []
-                // API MOCK
-            const result = await axios.get(`/prices/${this.sku}/${this.goverment_taxes}/${this.profitInput}`)
-            this.apiResult = result.data
-            this.loading = false
-        }
+  data: function () {
+    return {
+      profitInput: '',
+      apiResult: [],
+      loading: false
     }
+  },
+  computed: {
+    showList: function () {
+      return (this.apiResult.length > 0 && !this.isLoading)
+    },
+    isLoading() {
+      return this.loading
+    }
+  },
+  methods: {
+    formatCurrency: function (value) {
+      return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value)
+    },
+    searchProfit: async function () {
+      this.loading = true
+      this.apiResult = []
+      // API MOCK
+      const result = await axios.get(`/prices/${this.sku}/${this.goverment_taxes}/${this.profitInput}`)
+      this.apiResult = result.data
+      this.loading = false
+    }
+  }
 }
 RUR(() => {
-    new Vue({
-        el: document.getElementById('app'),
-        components: {
-            'simulator': SIMULATOR,
-        },
-    })
+  new Vue({
+    el: document.getElementById('app'),
+    components: {
+      'simulator': SIMULATOR,
+    },
+  })
 });
