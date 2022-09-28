@@ -1,5 +1,5 @@
 from app import app
 
 
-def getProductPrice():
+def getProductPrice(price, governement_taxes):
     return 0

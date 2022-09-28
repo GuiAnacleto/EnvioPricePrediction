@@ -1,131 +1,102 @@
 from app import app
-from app.service import bling, shopee, americanas, submarino
+from app.service import aliexpress, amazon, americanas, bling, kabum, magazineluiza, mercadolivre, olist, pontofrio, shopee, submarino
 from flask import Flask, redirect, url_for, request, jsonify, render_template
+
 
 @app.route('/prices/<sku>/<goverment_taxes>/<price>')
 def prices(sku, goverment_taxes, price):
-    
-    sku = "3920RW"    
 
-    price = float(price)    
+    sku = "3920RW"
+
+    price = float(price)
 
     produto = bling.getProductInfo(sku)
 
-    #MercadoLivre=================================================================
+    mercadolivre_result = mercadolivre.getProductPrice(
+        price=price, governement_taxes=float(goverment_taxes)/100)
 
-    if price < 79: ml_price = price * 1.14 + 5 
-    else: ml_price = price * 1.14
+    amazon_result = amazon.getProductPrice(
+        price=price, governement_taxes=float(goverment_taxes)/100)
 
-    #End_MercadoLivre=============================================================
+    americanas_result = americanas.getProductPrice(
+        price=price, governement_taxes=float(goverment_taxes)/100)
 
-    #Amazon=================================================================
-    
-    if price * 1.15 < 1: amazon_price = price + 1
-    else: amazon_price = price * 1.15
+    pontofrio_result = pontofrio.getProductPrice(
+        price=price, governement_taxes=float(goverment_taxes)/100)
 
-    #End_Amazon=============================================================
+    kabum_result = kabum.getProductPrice(
+        price=price, governement_taxes=float(goverment_taxes)/100)
 
-    #Americanas=================================================================
-    
-    americanas_result = americanas.getProductPrice(price=price, governement_taxes=float(goverment_taxes)/100)
+    magazineluiza_result = magazineluiza.getProductPrice(
+        price=price, governement_taxes=float(goverment_taxes)/100)
 
-    #End_Americanas=============================================================
+    shopee_result = shopee.getProductPrice(
+        price=price, governement_taxes=float(goverment_taxes)/100)
 
-    #PontoFrio=================================================================
-    
-    ponto_result = price * 1.18
+    aliexpress_result = aliexpress.getProductPrice(
+        price=price, governement_taxes=float(goverment_taxes)/100)
 
-    #End_PontoFrio=============================================================
+    submarino_result = submarino.getProductPrice(
+        price=price, governement_taxes=float(goverment_taxes)/100)
 
-    #Kabum=================================================================
-    
-    kabum_result = price * 1.14
+    olist_result = olist.getProductPrice(
+        price=price, governement_taxes=float(goverment_taxes)/100)
 
-    #End_Kabum=============================================================
-
-    #Magazine=================================================================
-    
-    magazine_result = price * 1.20
-
-    #End_Magazine=============================================================
-
-    #Shopee=================================================================
-    
-    shopee_result = shopee.getProductPrice(price=price, governement_taxes=float(goverment_taxes)/100)
-
-    #End_Shopee=============================================================
-
-    #Shopee=================================================================
-    
-    aliexpress_result = price * 1.10
-
-    #End_Shopee=============================================================
-
-    #Submarino=================================================================
-
-    submarino_result = submarino.getProductPrice(price=price, governement_taxes=float(goverment_taxes)/100)
-
-    #End_Submarino=============================================================
-
-    #Submarino=================================================================
-    
-    olist_result = price * 1.21 + 5
-
-    #End_Submarino=============================================================
+    # End_Submarino=============================================================
 
     prices_result = [
-        {"service":"mercadoLivre",
+        {"service": "mercadoLivre",
          "tax": "14% + R$ 5,00",
          "shipping": "17",
          "goverment_taxes": goverment_taxes,
-         "amount":round(ml_price, 2)},
-        {"service":"amazon",
+         "amount": round(mercadolivre_result, 2)},
+        {"service": "amazon",
          "tax": "15",
          "shipping": "17",
          "goverment_taxes": goverment_taxes,
-         "amount": round(amazon_price, 2)},
-        {"service":"americanas",
+         "amount": round(amazon_result, 2)},
+        {"service": "americanas",
          "tax": f"{round(americanas_result.tax, 0)}%",
          "shipping": americanas_result.shipping,
          "goverment_taxes": americanas_result.governement_taxes,
          "amount": round(americanas_result.selling_price, 2)},
-        {"service":"pontofrio",
+        {"service": "pontofrio",
          "tax": "18",
          "shipping": "17",
          "goverment_taxes": goverment_taxes,
-         "amount": round(ponto_result, 2)},
-        {"service":"kabum",
+         "amount": round(pontofrio_result, 2)},
+        {"service": "kabum",
          "tax": "14",
          "shipping": "17",
          "goverment_taxes": goverment_taxes,
          "amount": round(kabum_result, 2)},
-        {"service":"magazine",
+        {"service": "magazine",
          "tax": "20",
          "shipping": "17",
          "goverment_taxes": goverment_taxes,
-         "amount": round(magazine_result, 2)},
-        {"service":"shopee",
+         "amount": round(magazineluiza_result, 2)},
+        {"service": "shopee",
          "tax": f"{round(shopee_result.tax, 0)}%",
          "shipping": shopee_result.shipping,
          "goverment_taxes": shopee_result.governement_taxes,
          "amount": round(shopee_result.selling_price, 2)},
-        {"service":"aliexpress",
+        {"service": "aliexpress",
          "tax": "10",
          "shipping": "17",
          "goverment_taxes": goverment_taxes,
          "amount": round(aliexpress_result, 2)},
-        {"service":"submarino",
+        {"service": "submarino",
          "tax": f"{round(submarino_result.tax, 0)}%",
          "shipping": submarino_result.shipping,
          "goverment_taxes": submarino_result.governement_taxes,
          "amount": round(submarino_result.selling_price, 2)},
-        {"service":"olist",
+        {"service": "olist",
          "tax": "21",
          "shipping": "17",
          "goverment_taxes": goverment_taxes,
          "amount": round(olist_result, 2)}
     ]
 
-    #json.dumps(prices_result)
+    # json.dumps(prices_result)
 
-    return jsonify(prices_result)   
+    return jsonify(prices_result)
