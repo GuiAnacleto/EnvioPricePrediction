@@ -1,6 +1,10 @@
 from app import app
 from app.models import product_price
-#https://desenvolvedores.skyhub.com.br/
+# https://desenvolvedores.skyhub.com.br/
+# Plataforma SkyHub: http://in.skyhub.com.br/users/sign_in#/
+#Usuário: corporativo@e-nvio.com
+# Senha: 1yXcnh8fwsk=
+
 
 def getProductPrice(price, governement_taxes):
 

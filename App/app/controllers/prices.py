@@ -3,7 +3,7 @@ from app.service import aliexpress, amazon, americanas, bling, kabum, magazinelu
 from flask import Flask, redirect, url_for, request, jsonify, render_template
 
 
-@app.route('/prices/<sku>/<goverment_taxes>/<price>')
+@app.route('/prices/<sku>/<goverment_taxes>/<price>', methods=['GET'])
 def prices(sku, goverment_taxes, price):
 
     sku = "3920RW"
@@ -13,7 +13,7 @@ def prices(sku, goverment_taxes, price):
     produto = bling.getProductInfo(sku)
 
     mercadolivre_result = mercadolivre.getProductPrice(
-        price=price, governement_taxes=float(goverment_taxes)/100)
+        sku=sku, price=price, governement_taxes=float(goverment_taxes)/100)
 
     amazon_result = amazon.getProductPrice(
         price=price, governement_taxes=float(goverment_taxes)/100)
