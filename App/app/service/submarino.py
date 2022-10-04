@@ -1,5 +1,6 @@
 from app import app
 from app.models import product_price
+# https://desenvolvedores.skyhub.com.br/
 
 
 def getProductPrice(price, governement_taxes):
