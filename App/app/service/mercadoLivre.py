@@ -21,28 +21,40 @@ def getProductPrice(sku, price, governement_taxes):
     auth_token = 'APP_USR-1260458013278330-100413-21d254d212fbb297640167fd9e87e66d-391607939'
     hed = {'Authorization': 'Bearer ' + auth_token}
     payload = {'limit': '1', 'q': product.name}
-
     category_response = requests.get(url, params=payload, headers=hed)
     product_json = json.dumps(category_response.json()[0])
     product_str = json.loads(product_json)
     product_category = product_str['category_id']
 
     url = 'https://api.mercadolibre.com/sites/MLB/listing_prices'
-    auth_token = 'APP_USR-1260458013278330-100413-21d254d212fbb297640167fd9e87e66d-391607939'
-    hed = {'Authorization': 'Bearer ' + auth_token}
     payload = {'price': price, 'category_id': product_category}
-
-    price_response = requests.get(url, params=payload, headers=hed)
+    price_response = requests.get(url, params=payload)
     product_fee_json = json.dumps(price_response.json()[0])
     product_fee_str = json.loads(product_fee_json)
     product_fee = product_fee_str['sale_fee_amount']
 
-    product_fee = float(product_fee)
-    product_fee = product_fee/100
+    print(f"fee: {product_fee}")
 
-    tax_result = price * product_fee
-    shipping_result = price * 0.06
+    product_weight = float(product.pesoBruto)
+
+    if product_weight <= 500:
+        shipping_result = 25.42
+    if product_weight > 500 and product_weight <= 1000:
+        shipping_result = 27.67
+    if product_weight > 1000 and product_weight <= 2000:
+        shipping_result = 28.42
+    if product_weight > 2000 and product_weight <= 5000:
+        shipping_result = 35.17
+    if product_weight > 5000 and product_weight <= 9000:
+        shipping_result = 52.42
+    if product_weight > 9000 and product_weight <= 13000:
+        shipping_result = 82.42
+
     governement_taxes_result = price * governement_taxes
-    price_result = price - tax_result - shipping_result - governement_taxes_result
+    if price < 79:
+        price_result = price - product_fee - \
+            shipping_result - governement_taxes_result - 5
+    else:
+        price_result = price - product_fee - shipping_result - governement_taxes_result
 
-    return product_price(price=price, tax=tax_result, shipping=shipping_result, governement_taxes=governement_taxes_result, selling_price=price_result)
+    return product_price(price=price, tax=product_fee, shipping=shipping_result, governement_taxes=governement_taxes_result, selling_price=price_result)

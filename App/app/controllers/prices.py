@@ -7,37 +7,37 @@ from flask import Flask, redirect, url_for, request, jsonify, render_template
 def prices(sku, goverment_taxes, price):
 
     sku = "3920RW"
-
+    goverment_taxes = float(goverment_taxes)/100
     price = float(price)
 
-    produto = bling.getProductInfo(sku)
+    #produto = bling.getProductInfo(sku)
 
     mercadolivre_result = mercadolivre.getProductPrice(
-        sku=sku, price=price, governement_taxes=float(goverment_taxes)/100)
+        sku=sku, price=price, governement_taxes=goverment_taxes)
 
     amazon_result = amazon.getProductPrice(
-        price=price, governement_taxes=float(goverment_taxes)/100)
+        price=price, governement_taxes=goverment_taxes)
 
     americanas_result = americanas.getProductPrice(
-        price=price, governement_taxes=float(goverment_taxes)/100)
+        price=price, governement_taxes=goverment_taxes)
 
     pontofrio_result = pontofrio.getProductPrice(
-        price=price, governement_taxes=float(goverment_taxes)/100)
+        price=price, governement_taxes=goverment_taxes)
 
     kabum_result = kabum.getProductPrice(
-        price=price, governement_taxes=float(goverment_taxes)/100)
+        price=price, governement_taxes=goverment_taxes)
 
     magazineluiza_result = magazineluiza.getProductPrice(
-        price=price, governement_taxes=float(goverment_taxes)/100)
+        price=price, governement_taxes=goverment_taxes)
 
     shopee_result = shopee.getProductPrice(
-        price=price, governement_taxes=float(goverment_taxes)/100)
+        price=price, governement_taxes=goverment_taxes)
 
     aliexpress_result = aliexpress.getProductPrice(
-        price=price, governement_taxes=float(goverment_taxes)/100)
+        price=price, governement_taxes=goverment_taxes)
 
     submarino_result = submarino.getProductPrice(
-        price=price, governement_taxes=float(goverment_taxes)/100)
+        price=price, governement_taxes=goverment_taxes)
 
     olist_result = olist.getProductPrice(
         price=price, governement_taxes=float(goverment_taxes)/100)
@@ -46,10 +46,10 @@ def prices(sku, goverment_taxes, price):
 
     prices_result = [
         {"service": "mercadoLivre",
-         "tax": f"{round(mercadolivre_result.tax, 0)}%",
+         "tax": f"{mercadolivre_result.tax}",
          "shipping": mercadolivre_result.shipping,
          "goverment_taxes": mercadolivre_result.governement_taxes,
-         "amount": round(mercadolivre_result.selling_price, 2)},
+         "amount": mercadolivre_result.selling_price},
         {"service": "amazon",
          "tax": f"{round(amazon_result.tax, 0)}%",
          "shipping": amazon_result.shipping,
@@ -76,10 +76,10 @@ def prices(sku, goverment_taxes, price):
          "goverment_taxes": magazineluiza_result.governement_taxes,
          "amount": round(magazineluiza_result.selling_price, 2)},
         {"service": "shopee",
-         "tax": f"{round(shopee_result.tax, 0)}%",
+         "tax": f"{shopee_result.tax}",
          "shipping": shopee_result.shipping,
          "goverment_taxes": shopee_result.governement_taxes,
-         "amount": round(shopee_result.selling_price, 2)},
+         "amount": shopee_result.selling_price},
         {"service": "aliexpress",
          "tax": f"{round(aliexpress_result.tax, 0)}%",
          "shipping": aliexpress_result.shipping,

@@ -34,7 +34,7 @@ const SIMULATOR = {
               <div class="column is-3 is-full-mobile">\
                 <div class="input-wrapper">\
                   <label>Taxa do E-commerce</label>\
-                  <input class="input" type="text" :value="eCommerce.tax" readonly />\
+                  <input class="input" type="text" :value="formatCurrency(eCommerce.tax)" readonly />\
                 </div>\
               </div>\
               <div class="column is-3 is-full-mobile">\
@@ -46,7 +46,7 @@ const SIMULATOR = {
               <div class="column is-3 is-full-mobile">\
                 <div class="input-wrapper">\
                   <label>Impostos</label>\
-                  <input class="input" type="text" :value="\`${eCommerce.goverment_taxes}%\`" readonly />\
+                  <input class="input" type="text" :value="formatCurrency(eCommerce.goverment_taxes)" readonly />\
                 </div>\
               </div>\
               <div class="column is-3 is-full-mobile">\
