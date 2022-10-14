@@ -6,7 +6,7 @@ const STOCK = {
     </div>\
     <div class="columns">\
       <div class="column is-full">\
-        <input class="input is-medium" type="text" v-model="filter" placeholder="Filtro" />\
+        <input class="input is-medium" type="text" v-model="filter" placeholder="Filtro" @keyup="filterProducts" />\
       </div>\
     </div>\
     <div class="columns mb-4" v-if="showList">\
@@ -34,7 +34,7 @@ const STOCK = {
               </tr>\
           </thead>\
           <tbody>\
-            <tr v-for="(product, index) in apiResult" :key="index">\
+            <tr v-for="(product, index) in filteredResults" :key="index">\
               <td>{{product.title}}</td>\
               <td>{{product.characters}}</td>\
               <td>{{product.sku}}</td>\
@@ -70,6 +70,7 @@ const STOCK = {
     return {
       filter: '',
       apiResult: [],
+      filteredResults: [],
       loading: false
     }
   },
@@ -92,7 +93,11 @@ const STOCK = {
       this.apiResult = []
       const result = await axios.get(`/stock/`)
       this.apiResult = result.data
+      this.filteredResults = this.apiResult
       this.loading = false
+    },
+    filterProducts: function () {
+      this.filteredResults = this.apiResult.filter(product => product.title.toLowerCase().includes(this.filter.toLowerCase()))
     }
   },
   mounted(){
